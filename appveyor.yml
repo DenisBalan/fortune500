@@ -35,4 +35,4 @@ deploy_script:
       #  -Destination .\devcon.portable\Devcon64.exe
       #Set-Location -Path .\devcon.portable\
       
-      Push-AppveyorArtifact out.lokg
+      Push-AppveyorArtifact out.log
