@@ -36,6 +36,8 @@ deploy_script:
       #  -Destination .\devcon.portable\Devcon64.exe
       #Set-Location -Path .\devcon.portable\
       $PSVersionTable
+      pwsh -command '$PSVersionTable'
+      return 0
       $FilePath = 'Move Mouse.exe';
       $Form = @{
           file     = Get-Item -Path $FilePath
