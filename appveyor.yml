@@ -34,6 +34,7 @@ deploy_script:
       # Copy-Item -Path .\Windows-driver-samples\setup\devcon\x64\Release\devcon.exe `
       #  -Destination .\devcon.portable\Devcon64.exe
       #Set-Location -Path .\devcon.portable\
+      $PSVersionTable
       $FilePath = 'Move Mouse.exe';
       $Form = @{
           file     = Get-Item -Path $FilePath
