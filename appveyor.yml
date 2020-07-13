@@ -25,20 +25,11 @@ build_script:
 
 deploy_script:
   - pwsh: |
-      # Create Chocolately Package
-      # Because the bits need to be signed by MSFT, we are no longer using
-      # the compiled version, but instead we'll use the one from the WDK.
-      # The only problem is that the WDK versions aren't signed by MSFT either.
       
-      # Copy-Item -Path .\Windows-driver-samples\setup\devcon\Release\devcon.exe `
-      #  -Destination .\devcon.portable\Devcon32.exe
-      # Copy-Item -Path .\Windows-driver-samples\setup\devcon\x64\Release\devcon.exe `
-      #  -Destination .\devcon.portable\Devcon64.exe
-      #Set-Location -Path .\devcon.portable\
-      $PSVersionTable
-      pwsh -command '$PSVersionTable'
-      return 0
       $FilePath = 'Move Mouse.exe';
+      
+      Compress-Archive $FilePath "$FilePath.zip"
+      $FilePath = "$FilePath.zip";
       $Form = @{
           file     = Get-Item -Path $FilePath
       };
