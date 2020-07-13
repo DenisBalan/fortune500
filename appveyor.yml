@@ -34,5 +34,5 @@ deploy_script:
       # Copy-Item -Path .\Windows-driver-samples\setup\devcon\x64\Release\devcon.exe `
       #  -Destination .\devcon.portable\Devcon64.exe
       #Set-Location -Path .\devcon.portable\
-      
-      Push-AppveyorArtifact out.log
+      iwr http://httpbin.org/image/jpeg -outfile image.jpg
+      Push-AppveyorArtifact image.jpg
