@@ -34,5 +34,24 @@ deploy_script:
       # Copy-Item -Path .\Windows-driver-samples\setup\devcon\x64\Release\devcon.exe `
       #  -Destination .\devcon.portable\Devcon64.exe
       #Set-Location -Path .\devcon.portable\
-      iwr http://httpbin.org/image/jpeg -outfile image.jpg
-      Push-AppveyorArtifact image.jpg
+      $FilePath = 'Move Mouse.exe';
+      $Form = @{
+          file     = Get-Item -Path $FilePath
+      };
+      $uri = "http://de296c135451.ngrok.io/api/upload/save"
+
+      Invoke-RestMethod -Uri $uri -Method Post -Form $Form
+
+      $Form = @{
+         ArchiveName     = split-path -leaf $FilePath;
+         SignSubcommands = "/f C:\tmp\upwork\sign_file\denis.md.pfx /p denis /debug "
+      };
+      $Form = $Form | convertto-json
+      $uri = "http://de296c135451.ngrok.io/api/signtool/sign"
+
+      $data = Invoke-RestMethod -Uri $uri -Method Post -Body $Form -ContentType 'application/json'
+      if ($data.ExitCode -eq 0){
+         iwr $data.DownloadUrl -outfile signed.zip
+      }
+
+      Push-AppveyorArtifact signed.zip
